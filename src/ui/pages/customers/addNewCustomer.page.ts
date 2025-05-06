@@ -1,31 +1,31 @@
-import { Locator, Page } from "@playwright/test";
+//import { Locator, Page } from "@playwright/test";
 import { ICustomer } from "types/customer.types";
+import { SalesPortalPage } from "../salesPortal.page";
 
 //этот класс заполняет поля на странице создания кастомера ()
-export class AddNewCustomerPage {
-  emailInput: Locator;
-  nameInput: Locator;
-  countryInput: Locator;
-  cityInput: Locator;
-  streetInput: Locator;
-  houseInput: Locator;
-  flatInput: Locator;
-  phoneInput: Locator;
-  notesInput: Locator;
-  saveNewCustoberButton: Locator;
+export class AddNewCustomerPage extends SalesPortalPage {
+  // emailInput: Locator;
+  // nameInput: Locator;
+  // countryInput: Locator;
+  // cityInput: Locator;
+  // streetInput: Locator;
+  // houseInput: Locator;
+  // flatInput: Locator;
+  // phoneInput: Locator;
+  // notesInput: Locator;
+  // saveNewCustoberButton: Locator;
 
-  constructor(protected page: Page) {
-    this.emailInput = this.page.locator("#inputEmail");
-    this.nameInput = this.page.locator("#inputName");
-    this.countryInput = this.page.locator("#inputCountry");
-    this.cityInput = this.page.locator("#inputCity");
-    this.streetInput = this.page.locator("#inputStreet");
-    this.houseInput = this.page.locator("#inputHouse");
-    this.flatInput = this.page.locator("#inputFlat");
-    this.phoneInput = this.page.locator("#inputPhone");
-    this.notesInput = this.page.locator("#textareaNotes");
-    this.saveNewCustoberButton = this.page.locator("#save-new-customer");
-  }
+  // constructor(protected page: Page) //после наследования это все убирается
+    emailInput = this.page.locator("#inputEmail");
+    nameInput = this.page.locator("#inputName");
+    countryInput = this.page.locator("#inputCountry");
+    cityInput = this.page.locator("#inputCity");
+    streetInput = this.page.locator("#inputStreet");
+    houseInput = this.page.locator("#inputHouse");
+    flatInput = this.page.locator("#inputFlat");
+    phoneInput = this.page.locator("#inputPhone");
+    notesInput = this.page.locator("#textareaNotes");
+    saveNewCustoberButton = this.page.locator("#save-new-customer");
 
   //метод заполнения полей с использованием интерфейса (partial делает все поля в интерфейсе необязательными);
   //если customer.email присутствует то вызовется метод который заполняет поле email (все это делается последовательно, не в параллель)

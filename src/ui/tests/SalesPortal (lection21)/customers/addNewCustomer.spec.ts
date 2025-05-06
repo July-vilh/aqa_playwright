@@ -20,22 +20,23 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     await page.getByRole("button", { name: "Login" }).click();
 
     //дождаться что исчезнут все спинеры после логина
-    const spinner = page.locator(".spinner-border");
+    //const spinner = page.locator(".spinner-border");
     const welcomeTitle = page.locator(".welcome-text");
     await expect(welcomeTitle).toBeVisible();
-    await expect(spinner).toHaveCount(0);
+    // метод из класса SalesPortalPage (через наследование)
+    await homePage.waitForSpinner();
 
     //перейти на модуль с кастомерами (клик через класс HomePage)
     await homePage.clickModuleButton("Customers");
     const customersTitle = page.locator("h2");
     await expect(customersTitle).toHaveText("Customers List ");
-    await expect(spinner).toHaveCount(0);
+    await customersPage.waitForSpinner();
 
     //добавить нового customer (клик на кнопку добавления через класс CustomersPage)
     await customersPage.clickAddNewCustomer();
 
     await expect(customersTitle).toHaveText("Add New Customer ");
-    await expect(spinner).toHaveCount(0);
+    await addNewCustomerPage.waitForSpinner();
 
     //заполнить поля данными (заполнение полей через класс AddNewCustomerPage)
     await addNewCustomerPage.fillInputs({
@@ -65,7 +66,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
 
     //проверить что customer успешно создался
     await expect(customersTitle).toHaveText("Customers List ");
-    await expect(spinner).toHaveCount(0);
+    await customersPage.waitForSpinner();
     await expect(page.locator(".toast-body")).toHaveText(
       "Customer was successfully created"
     );
