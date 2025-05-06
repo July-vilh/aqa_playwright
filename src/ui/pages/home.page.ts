@@ -8,11 +8,14 @@ export class HomePage extends SalesPortalPage {
   // productsButton: Locator;
   // ordersButton: Locator;
 
+  title = this.page.locator(".welcome-text");
   //кнопки которые открывают свои модули в нав-бар меню (их локаторы) описание
   //constructor(protected page: Page) // все это убрали после наследования
   customersButton = this.page.getByRole("link", { name: "Customers" });
   productsButton = this.page.getByRole("link", { name: "Products" });
   ordersButton = this.page.getByRole("link", { name: "Orders" });
+
+  uniqueElement = this.title;
 
   //метод который нажимает на эти 3 кнопки (действие)
   async clickModuleButton(moduleName: ModuleName) {

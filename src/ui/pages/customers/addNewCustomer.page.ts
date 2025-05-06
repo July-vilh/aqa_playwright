@@ -1,6 +1,7 @@
 //import { Locator, Page } from "@playwright/test";
 import { ICustomer } from "types/customer.types";
 import { SalesPortalPage } from "../salesPortal.page";
+import { Locator } from "playwright";
 
 //этот класс заполняет поля на странице создания кастомера ()
 export class AddNewCustomerPage extends SalesPortalPage {
@@ -26,6 +27,9 @@ export class AddNewCustomerPage extends SalesPortalPage {
     phoneInput = this.page.locator("#inputPhone");
     notesInput = this.page.locator("#textareaNotes");
     saveNewCustoberButton = this.page.locator("#save-new-customer");
+
+    //по этой кнопке будем удостоверяться что эта страница открыта
+    uniqueElement = this.saveNewCustoberButton;
 
   //метод заполнения полей с использованием интерфейса (partial делает все поля в интерфейсе необязательными);
   //если customer.email присутствует то вызовется метод который заполняет поле email (все это делается последовательно, не в параллель)

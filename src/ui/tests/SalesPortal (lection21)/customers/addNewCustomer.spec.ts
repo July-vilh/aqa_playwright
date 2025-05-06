@@ -21,22 +21,26 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
 
     //дождаться что исчезнут все спинеры после логина
     //const spinner = page.locator(".spinner-border");
-    const welcomeTitle = page.locator(".welcome-text");
-    await expect(welcomeTitle).toBeVisible();
-    // метод из класса SalesPortalPage (через наследование)
-    await homePage.waitForSpinner();
+    //const welcomeTitle = page.locator(".welcome-text");
+    
+    // await expect(welcomeTitle).toBeVisible();
+    // // метод из класса SalesPortalPage (через наследование)
+    // await homePage.waitForSpinner();
+    await homePage.waitForOpened();
 
     //перейти на модуль с кастомерами (клик через класс HomePage)
     await homePage.clickModuleButton("Customers");
-    const customersTitle = page.locator("h2");
-    await expect(customersTitle).toHaveText("Customers List ");
-    await customersPage.waitForSpinner();
+    // const customersTitle = page.locator("h2");
+    // await expect(customersTitle).toHaveText("Customers List ");
+    // await customersPage.waitForSpinner();
+    await customersPage.waitForOpened();
 
     //добавить нового customer (клик на кнопку добавления через класс CustomersPage)
     await customersPage.clickAddNewCustomer();
 
-    await expect(customersTitle).toHaveText("Add New Customer ");
-    await addNewCustomerPage.waitForSpinner();
+    // await expect(customersTitle).toHaveText("Add New Customer ");
+    // await addNewCustomerPage.waitForSpinner();
+    await addNewCustomerPage.waitForOpened();
 
     //заполнить поля данными (заполнение полей через класс AddNewCustomerPage)
     await addNewCustomerPage.fillInputs({
@@ -65,8 +69,10 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     await addNewCustomerPage.clickSaveNewCustomer();
 
     //проверить что customer успешно создался
-    await expect(customersTitle).toHaveText("Customers List ");
-    await customersPage.waitForSpinner();
+    // await expect(customersTitle).toHaveText("Customers List ");
+    // await customersPage.waitForSpinner();
+    await customersPage.waitForOpened();
+
     await expect(page.locator(".toast-body")).toHaveText(
       "Customer was successfully created"
     );

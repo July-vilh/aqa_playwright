@@ -7,8 +7,21 @@ import { expect, Locator, Page } from "@playwright/test";
 
 export abstract class SalesPortalPage {
   spinner: Locator;
+  /*каждая страница будет обладать методом waitForOpened и тк мы сделали uniqueElement абстрактным то каждая страница обязана
+  будет реализовать это поле (uniqueElement) те прописать какой локатор явл-ся уникальным
+  и когда из любой пейджи будет вызываться метод waitForOpened он будет тянуть селектор собственный уникального элемента
+  и следовательно 1 раз написав сигнатуру такого метода он будет на каждой странице ожидать разные элементы */
+
+  abstract uniqueElement: Locator;
+
+
   constructor(protected page: Page) {
     this.spinner = page.locator(".spinner-border");
+  }
+
+  async waitForOpened(){
+    await expect(this.uniqueElement).toBeVisible();
+    await this.waitForSpinner();
   }
 
   async waitForSpinner() {
