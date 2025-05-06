@@ -1,12 +1,14 @@
 // сделать класс от которого будем наследоваться всеми нашими страницами и иметь доступ к общим вещам
 // абстрактный класс тк этот класс явл-ся надстройкой над нашими педж обжектами и мы не предполагаем что из этого будет создаваться объект
 // класс с Page
+// это надстройка над всеми пэйдж обжектами
 
 // плюс добавление метода для спинера
 import { expect, Locator, Page } from "@playwright/test";
 
 export abstract class SalesPortalPage {
   spinner: Locator;
+  notification: Locator;
   /*каждая страница будет обладать методом waitForOpened и тк мы сделали uniqueElement абстрактным то каждая страница обязана
   будет реализовать это поле (uniqueElement) те прописать какой локатор явл-ся уникальным
   и когда из любой пейджи будет вызываться метод waitForOpened он будет тянуть селектор собственный уникального элемента
@@ -14,12 +16,12 @@ export abstract class SalesPortalPage {
 
   abstract uniqueElement: Locator;
 
-
   constructor(protected page: Page) {
     this.spinner = page.locator(".spinner-border");
+    this.notification = page.locator(".toast-body");
   }
 
-  async waitForOpened(){
+  async waitForOpened() {
     await expect(this.uniqueElement).toBeVisible();
     await this.waitForSpinner();
   }
@@ -27,5 +29,9 @@ export abstract class SalesPortalPage {
   async waitForSpinner() {
     //await expect(welcomeTitle).toBeVisible();
     await expect(this.spinner).toHaveCount(0);
+  }
+
+  async waitForNotification(text: NOTIFICATIONS) {
+    await expect(this.notification.last()).toHaveText(text);
   }
 }

@@ -22,7 +22,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     //дождаться что исчезнут все спинеры после логина
     //const spinner = page.locator(".spinner-border");
     //const welcomeTitle = page.locator(".welcome-text");
-    
+
     // await expect(welcomeTitle).toBeVisible();
     // // метод из класса SalesPortalPage (через наследование)
     // await homePage.waitForSpinner();
@@ -53,7 +53,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
       flat: "787",
       phone: "+67676767799",
       notes: "somenotes",
-    })
+    });
 
     // await page.locator("#inputEmail").fill("julytest@gmail.com");
     // await page.locator("#inputName").fill("Test Customer");
@@ -64,7 +64,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     // await page.locator("#inputFlat").fill("787");
     // await page.locator("#inputPhone").fill("+67676767799");
     // await page.locator("#textareaNotes").fill("somenotes");
-    
+
     //клик по кнопке сохранения заполненных полей (метод из класса AddNewCustomerPage)
     await addNewCustomerPage.clickSaveNewCustomer();
 
@@ -73,8 +73,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     // await customersPage.waitForSpinner();
     await customersPage.waitForOpened();
 
-    await expect(page.locator(".toast-body")).toHaveText(
-      "Customer was successfully created"
-    );
+    //await expect(page.locator(".toast-body")).toHaveText("Customer was successfully created");
+    await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_CREATED);
   });
 });
