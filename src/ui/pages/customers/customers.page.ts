@@ -1,5 +1,5 @@
 //import { Locator, Page } from "@playwright/test";
-import { Locator } from "playwright";
+//import { Locator } from "playwright";
 import { SalesPortalPage } from "../salesPortal.page";
 
 // этот класс нажимает на кнопку добавить customer

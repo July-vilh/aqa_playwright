@@ -1,11 +1,13 @@
 import test, { expect } from "@playwright/test";
-//import { COUNTRIES } from "data/customers/countries.data";
+import { generateCustomerData } from "data/customers/generateCustomer.data";
+import { NOTIFICATIONS } from "data/customers/notifications.data";
+import { COUNTRIES } from "data/customers/countries.data";
 import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {
-  test("Create customer with smoke data", async ({ page }) => {
+  test("Should create customer with smoke data", async ({ page }) => {
     //создание объекта этого класса в котором уже есть методы
     const homePage = new HomePage(page);
     const customersPage = new CustomersPage(page);
@@ -43,17 +45,20 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     await addNewCustomerPage.waitForOpened();
 
     //заполнить поля данными (заполнение полей через класс AddNewCustomerPage)
-    await addNewCustomerPage.fillInputs({
-      email: "julytest@gmail.com",
-      name: "Test Customer",
-      country: COUNTRIES.GERMANY,
-      city: "Kologne",
-      street: "Germanskaya",
-      house: "78",
-      flat: "787",
-      phone: "+67676767799",
-      notes: "somenotes",
-    });
+    //{Date.now() для генерации рандомного емэйла
+    // await addNewCustomerPage.fillInputs({
+    //   email: `julytest${Date.now()}@gmail.com`,
+    //   name: "Test Customer",
+    //   country: COUNTRIES.GERMANY,
+    //   city: "Kologne",
+    //   street: "Germanskaya",
+    //   house: "78",
+    //   flat: "787",
+    //   phone: "+67676767799",
+    //   notes: "somenotes",
+    // });
+    const data = generateCustomerData({ country: COUNTRIES.RUSSIA });
+    await addNewCustomerPage.fillInputs(data);
 
     // await page.locator("#inputEmail").fill("julytest@gmail.com");
     // await page.locator("#inputName").fill("Test Customer");
@@ -75,5 +80,41 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
 
     //await expect(page.locator(".toast-body")).toHaveText("Customer was successfully created");
     await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_CREATED);
+  });
+
+  test("Should NOT create customer with duplicate email", async ({ page }) => {
+    //создание объекта этого класса в котором уже есть методы
+    const homePage = new HomePage(page);
+    const customersPage = new CustomersPage(page);
+    const addNewCustomerPage = new AddNewCustomerPage(page);
+
+    //перейти на сайт
+    await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
+
+    //залогиниться
+    await page.locator("#emailinput").fill("test@gmail.com");
+    await page.locator("#passwordinput").fill("12345678");
+    await page.getByRole("button", { name: "Login" }).click();
+
+    await homePage.waitForOpened();
+
+    await homePage.clickModuleButton("Customers");
+
+    await customersPage.waitForOpened();
+    await customersPage.clickAddNewCustomer();
+    await addNewCustomerPage.waitForOpened();
+    //создали данные
+    const data = generateCustomerData();
+    await addNewCustomerPage.fillInputs(data);
+    await addNewCustomerPage.clickSaveNewCustomer();
+    await customersPage.waitForOpened();
+    await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_CREATED);
+
+    await customersPage.clickAddNewCustomer();
+    await addNewCustomerPage.waitForOpened();
+    // эти же данные подсунули дальше
+    await addNewCustomerPage.fillInputs(data);
+    await addNewCustomerPage.clickSaveNewCustomer();
+    await customersPage.waitForNotification(NOTIFICATIONS.CUSTOMER_DUPLICATED(data.email));
   });
 });

@@ -31,7 +31,7 @@ export abstract class SalesPortalPage {
     await expect(this.spinner).toHaveCount(0);
   }
 
-  async waitForNotification(text: NOTIFICATIONS) {
+  async waitForNotification(text: string) {
     await expect(this.notification.last()).toHaveText(text);
   }
 }

@@ -1,7 +1,7 @@
 //import { Locator, Page } from "@playwright/test";
 import { ICustomer } from "types/customer.types";
 import { SalesPortalPage } from "../salesPortal.page";
-import { Locator } from "playwright";
+//import { Locator } from "playwright";
 
 //этот класс заполняет поля на странице создания кастомера ()
 export class AddNewCustomerPage extends SalesPortalPage {

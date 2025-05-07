@@ -2,16 +2,14 @@ import { Locator, Page } from "@playwright/test";
 import { ModuleName } from "types/home.types";
 import { SalesPortalPage } from "./salesPortal.page";
 
-//этот класс нажимает на кнопки из бокового меню
+// этот класс нажимает на кнопки из бокового меню
 export class HomePage extends SalesPortalPage {
-  // customersButton: Locator;
-  // productsButton: Locator;
-  // ordersButton: Locator;
-
   title = this.page.locator(".welcome-text");
-  //кнопки которые открывают свои модули в нав-бар меню (их локаторы) описание
-  //constructor(protected page: Page) // все это убрали после наследования
-  customersButton = this.page.getByRole("link", { name: "Customers" });
+
+  // кнопки которые открывают свои модули в нав-бар меню (их локаторы) описание
+  // constructor(protected page: Page) // все это убрали после наследования
+
+  customersButton = this.page.getByRole("link", { name: "Customer" });
   productsButton = this.page.getByRole("link", { name: "Products" });
   ordersButton = this.page.getByRole("link", { name: "Orders" });
 
