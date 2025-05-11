@@ -4,7 +4,7 @@ import { IUser } from "types/user.types";
 export class SignIn extends SalesPortalPage {
   emailInput = this.page.locator("#emailinput");
   passwordInput = this.page.locator("#passwordinput");
-  buttonLogin = this.page.getByRole("button", { name: "Login" });
+ loginButton = this.page.getByRole("button", { name: "Login" });
 
   uniqueElement = this.buttonLogin;
 
