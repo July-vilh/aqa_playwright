@@ -1,7 +1,7 @@
 import { SalesPortalPage } from "./salesPortal.page";
 import { IUser } from "types/user.types";
 
-export class signIn extends SalesPortalPage {
+export class SignIn extends SalesPortalPage {
   emailInput = this.page.locator("#emailinput");
   passwordInput = this.page.locator("#passwordinput");
   buttonLogin = this.page.getByRole("button", { name: "Login" });
