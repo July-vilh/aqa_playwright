@@ -5,8 +5,8 @@ import { COUNTRIES } from "data/customers/countries.data";
 import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
-import { signIn } from "ui/pages/signIn.page";
-import { LoginCreds } from "data/customers/loginCredentials.data";
+import { SignIn } from "ui/pages/signIn.page";
+import { loginCreds } from "data/customers/loginCredentials.data";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {
   test("Should create customer with smoke data", async ({ page }) => {
@@ -14,7 +14,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const homePage = new HomePage(page);
     const customersPage = new CustomersPage(page);
     const addNewCustomerPage = new AddNewCustomerPage(page);
-    const signInPage = new signIn(page);
+    const signInPage = new SignIn(page);
 
     //перейти на сайт
     await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
@@ -23,7 +23,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     /* await page.locator("#emailinput").fill("test@gmail.com");
        await page.locator("#passwordinput").fill("12345678");
        await page.getByRole("button", { name: "Login" }).click(); */
-    await signInPage.fillCredentials(LoginCreds);
+    await signInPage.fillCredentials(loginCreds);
     await signInPage.clickOnLoginButton();
 
     //дождаться что исчезнут все спинеры после логина
