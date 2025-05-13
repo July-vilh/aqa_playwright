@@ -4,15 +4,17 @@ import { expect } from "@playwright/test";
 import { SalesPortalPage } from "../salesPortal.page";
 import { ICustomer, ICustomerInTable } from "types/customer.types";
 import { COUNTRIES } from "data/customers/countries.data";
+import { FilterModal } from "../modals/customers/filter.modal";
 
 // этот класс нажимает на кнопку добавить customer
 export class CustomersPage extends SalesPortalPage {
   //addNewCustomerButton: Locator;
-
   //constructor(protected page: Page) // все это убрали после наследования
-  readonly addNewCustomerButton = this.page.getByRole("button", {
-    name: "+ Add Customer",
-  });
+
+  // подход = композиция: вставили фильтрационную модалку как часть страницы кастомеров не передавая страницы кастомеров 
+  // через композицию дали доступ к этой модалке кастомерам не передавая ни селекторы ничего 
+  readonly filterModal = new FilterModal(this.page);
+  readonly addNewCustomerButton = this.page.getByRole("button", {name: "+ Add Customer",});
 
   async clickAddNewCustomer() {
     await this.addNewCustomerButton.click();

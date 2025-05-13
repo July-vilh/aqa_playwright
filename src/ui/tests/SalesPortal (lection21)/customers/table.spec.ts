@@ -7,7 +7,8 @@ import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
 import { SignIn } from "ui/pages/signIn.page";
 import { loginCreds } from "data/customers/loginCredentials.data";
-import _ from "lodash";
+import _, { filter } from "lodash";
+import { FilterModal } from "ui/pages/modals/customers/filter.modal";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {
   test("Should check created customer in table", async ({ page }) => {
@@ -44,16 +45,19 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const actualCustomerData = await customersPage.getCustomerData(data.email);
     //выбрать не все поля из нашей data а только нужные поля, те добавить (pick) только нужные поля из объекта
     //подключили дополнительно библиотеку lodash
-    expect(actualCustomerData).toEqual(_.pick(data, ["email", "name", "country"]));
+    expect(actualCustomerData).toEqual(
+      _.pick(data, ["email", "name", "country"])
+    );
     const table = await customersPage.getTableData();
     //нажатие на кнопку Delete в actions
     await customersPage.clickTableAction(data.email, "delete");
   });
 
-  test('Should check filtered by country table data', async ({ page }) => {
+  test("Should check filtered by country table data", async ({ page }) => {
     //Precondition
     const homePage = new HomePage(page);
     const customersPage = new CustomersPage(page);
+    //const filterModal = new FilterModal(page);
     const signInPage = new SignIn(page);
     await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
 
@@ -64,5 +68,22 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     await homePage.waitForOpened();
     await homePage.clickModuleButton("Customers");
     await customersPage.waitForOpened();
+
+    //нажать на кнопку фильтра и в появившеся модалке выбрать указанные чекбоксы
+    await customersPage.clickFilter();
+    await customersPage.filterModal.waitForOpened();
+    const countriesToCheck = ["USA", "Belarus", "Germany"];
+    await customersPage.filterModal.checkFilters(...countriesToCheck);
+    await customersPage.filterModal.clickApply();
+
+    //waitForClosed ожидаем что модалка закрылась -> дожидаемся что все данные сейчас подгрузятся
+    await customersPage.filterModal.waitForClosed();
+    await customersPage.waitForOpened();
+
+    // валидация что выбранные чекбоксы корректно выбрались
+    const actualTableData = await customersPage.getTableData();
+    expect(
+      actualTableData?.every((row) => countriesToCheck.includes(row.country)),
+      `Expect table to contain only customers from ${countriesToCheck.join(", ")}`).toBe(true);
   });
 });
