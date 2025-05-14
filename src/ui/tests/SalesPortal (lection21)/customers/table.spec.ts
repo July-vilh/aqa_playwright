@@ -1,4 +1,7 @@
-import test, { expect } from "@playwright/test";
+//import { test, expect } from "@playwright/test";
+//Page Objectы теперь инициализируются тут (в фикстуре):
+//import { test, expect } from "fixtures/pages.fixture";
+import { test, expect } from "fixtures/businessSteps.fixture";
 import { generateCustomerData } from "data/customers/generateCustomer.data";
 import { NOTIFICATIONS } from "data/customers/notifications.data";
 import { COUNTRIES } from "data/customers/countries.data";
@@ -11,20 +14,22 @@ import _, { filter } from "lodash";
 import { FilterModal } from "ui/pages/modals/customers/filter.modal";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {
-  test("Should check created customer in table", async ({ page }) => {
-    //создание объекта этого класса в котором уже есть методы
+  //---1ый подход (фикстуры):
+  test("Should check created customer in table", async ({ customersPage, addNewCustomerPage, homePage, loginAsLocalUser}) => {
+  //создание объекта этого класса в котором уже есть методы
     //Precondition
-    const homePage = new HomePage(page);
-    const customersPage = new CustomersPage(page);
-    const addNewCustomerPage = new AddNewCustomerPage(page);
-    const signInPage = new SignIn(page);
-    await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
+    // const homePage = new HomePage(page);
+    // const customersPage = new CustomersPage(page);
+    // const addNewCustomerPage = new AddNewCustomerPage(page);
+    //const signInPage = new SignIn(page);
 
-    //залогиниться
-    await signInPage.fillCredentials(loginCreds);
-    await signInPage.clickOnLoginButton();
+    await loginAsLocalUser(); //вместо всех закомментированных ниже строчек (фикстура)
+    /* await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
+     //залогиниться
+      await signInPage.fillCredentials(loginCreds);
+      await signInPage.clickOnLoginButton(); */
 
-    await homePage.waitForOpened();
+    // await homePage.waitForOpened();
 
     await homePage.clickModuleButton("Customers");
 
@@ -53,7 +58,10 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     await customersPage.clickTableAction(data.email, "delete");
   });
 
-  test("Should check filtered by country table data", async ({ page }) => {
+  //--- 2ой подход (фикстуры): добавлены "pages"
+  test("Should check filtered by country table data", async ({ page, 
+    //pages 
+    }) => {
     //Precondition
     const homePage = new HomePage(page);
     const customersPage = new CustomersPage(page);
@@ -65,25 +73,28 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     await signInPage.fillCredentials(loginCreds);
     await signInPage.clickOnLoginButton();
 
-    await homePage.waitForOpened();
-    await homePage.clickModuleButton("Customers");
-    await customersPage.waitForOpened();
+    /* await pages.homePage.waitForOpened();
+    await pages.homePage.clickModuleButton("Customers");
+    await pages.customersPage.waitForOpened(); */
 
     //нажать на кнопку фильтра и в появившеся модалке выбрать указанные чекбоксы
-    await customersPage.clickFilter();
-    await customersPage.filterModal.waitForOpened();
+    //await pages.customersPage.clickFilter();
+    //await pages.customersPage.filterModal.waitForOpened();
     const countriesToCheck = ["USA", "Belarus", "Germany"];
-    await customersPage.filterModal.checkFilters(...countriesToCheck);
-    await customersPage.filterModal.clickApply();
+    //await pages.customersPage.filterModal.checkFilters(...countriesToCheck);
+    //await pages.customersPage.filterModal.clickApply();
 
     //waitForClosed ожидаем что модалка закрылась -> дожидаемся что все данные сейчас подгрузятся
-    await customersPage.filterModal.waitForClosed();
-    await customersPage.waitForOpened();
+    /* await pages.customersPage.filterModal.waitForClosed();
+    await pages.customersPage.waitForOpened(); */ 
 
     // валидация что выбранные чекбоксы корректно выбрались
     const actualTableData = await customersPage.getTableData();
     expect(
       actualTableData?.every((row) => countriesToCheck.includes(row.country)),
-      `Expect table to contain only customers from ${countriesToCheck.join(", ")}`).toBe(true);
+      `Expect table to contain only customers from ${countriesToCheck.join(
+        ", "
+      )}`
+    ).toBe(true);
   });
 });
