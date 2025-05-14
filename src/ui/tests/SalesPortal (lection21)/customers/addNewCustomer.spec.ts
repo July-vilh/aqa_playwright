@@ -7,6 +7,7 @@ import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
 import { SignIn } from "ui/pages/signIn.page";
 import { loginCreds } from "data/customers/loginCredentials.data";
+import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {
   test("Should create customer with smoke data", async ({ page }) => {
@@ -17,7 +18,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const signInPage = new SignIn(page);
 
     //перейти на сайт
-    await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
+    await page.goto(SALES_PORTAL_URL);
 
     //залогиниться
     /* await page.locator("#emailinput").fill("test@gmail.com");
@@ -95,11 +96,11 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const addNewCustomerPage = new AddNewCustomerPage(page);
 
     //перейти на сайт
-    await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
+    await page.goto(SALES_PORTAL_URL);
 
     //залогиниться
-    await page.locator("#emailinput").fill("test@gmail.com");
-    await page.locator("#passwordinput").fill("12345678");
+    await page.locator("#emailinput").fill(USER_LOGIN);
+    await page.locator("#passwordinput").fill(USER_PASSWORD);
     await page.getByRole("button", { name: "Login" }).click();
 
     await homePage.waitForOpened();
