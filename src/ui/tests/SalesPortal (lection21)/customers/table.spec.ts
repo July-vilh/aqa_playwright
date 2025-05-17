@@ -6,9 +6,9 @@ import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
 import { SignIn } from "ui/pages/signIn.page";
-import { loginCreds } from "data/customers/loginCredentials.data";
 import _, { filter } from "lodash";
 import { FilterModal } from "ui/pages/modals/customers/filter.modal";
+import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {
   test("Should check created customer in table", async ({ page }) => {
@@ -18,10 +18,11 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const customersPage = new CustomersPage(page);
     const addNewCustomerPage = new AddNewCustomerPage(page);
     const signInPage = new SignIn(page);
-    await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
+    await page.goto(SALES_PORTAL_URL);
 
     //залогиниться
-    await signInPage.fillCredentials(loginCreds);
+    await page.locator("#emailinput").fill(USER_LOGIN);
+    await page.locator("#passwordinput").fill(USER_PASSWORD);
     await signInPage.clickOnLoginButton();
 
     await homePage.waitForOpened();
@@ -59,10 +60,11 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const customersPage = new CustomersPage(page);
     //const filterModal = new FilterModal(page);
     const signInPage = new SignIn(page);
-    await page.goto("https://anatoly-karpovich.github.io/aqa-course-project/#");
+    await page.goto(SALES_PORTAL_URL);
 
     //залогиниться
-    await signInPage.fillCredentials(loginCreds);
+    await page.locator("#emailinput").fill(USER_LOGIN);
+    await page.locator("#passwordinput").fill(USER_PASSWORD);
     await signInPage.clickOnLoginButton();
 
     await homePage.waitForOpened();
