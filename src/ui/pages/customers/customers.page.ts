@@ -5,6 +5,7 @@ import { SalesPortalPage } from "../salesPortal.page";
 import { ICustomer, ICustomerInTable } from "types/customer.types";
 import { COUNTRIES } from "data/customers/countries.data";
 import { FilterModal } from "../modals/customers/filter.modal";
+import { DeleteModal } from "../modals/customers/delete.modal";
 
 // этот класс нажимает на кнопку добавить customer
 export class CustomersPage extends SalesPortalPage {
@@ -14,6 +15,7 @@ export class CustomersPage extends SalesPortalPage {
   // подход = композиция: вставили фильтрационную модалку как часть страницы кастомеров не передавая страницы кастомеров 
   // через композицию дали доступ к этой модалке кастомерам не передавая ни селекторы ничего 
   readonly filterModal = new FilterModal(this.page);
+  readonly deleteCustomerModal = new DeleteModal(this.page);
   readonly addNewCustomerButton = this.page.getByRole("button", {name: "+ Add Customer",});
 
   async clickAddNewCustomer() {
