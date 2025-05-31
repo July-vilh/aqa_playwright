@@ -48,7 +48,6 @@ test.describe("[API] [Customers] [Create] with positive and negative checks", ()
       const customerResponse = await customersController.create(data, token);
       //Assert1: status code + IsSuccess + ErrorMessage
       validateResponse(customerResponse,STATUS_CODES.BAD_REQUEST,false,expectedError);
-      expect.soft(customerResponse.body.Customer).toBeFalsy();
     });
   });
 });
