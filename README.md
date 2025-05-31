@@ -5,7 +5,8 @@
 ### Внесённые изменения:
 
 - Добавлены файлы [`pages.fixture.ts`](src/fixtures/pages.fixture.ts), [`page.ts`](src/fixtures/page.ts) и [`businessSteps.fixture.ts`](src/fixtures/businessSteps.fixture.ts) в директорию `src/fixtures` — в них описаны подходы к добавлению и использованию фикстур.
-- Обновлён файл с тестами [`table.spec.ts`](src/tests/SalesPortal/customers/table.spec.ts) в соответствии с новой архитектурой на основе фикстур.
+- Обновлён файл с тестами [`table.spec.ts`](/src/ui/tests/SalesPortal%20(lection21)/customers/table.spec.ts) в соответствии с новой архитектурой на основе фикстур.
+- src/ui/tests/SalesPortal (lection21)/customers/table.spec.ts
 
 ---
 
