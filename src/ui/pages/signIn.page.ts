@@ -1,5 +1,5 @@
 import { SalesPortalPage } from "./salesPortal.page";
-import { IUser } from "types/user.types";
+import { ICredentials } from "types/user.types";
 
 export class SignIn extends SalesPortalPage {
   emailInput = this.page.locator("#emailinput");
@@ -8,8 +8,8 @@ export class SignIn extends SalesPortalPage {
 
   uniqueElement = this.loginButton;
 
-  async fillCredentials(userCreds: IUser) {
-    await this.emailInput.fill(userCreds.email);
+  async fillCredentials(userCreds: ICredentials) {
+    await this.emailInput.fill(userCreds.username);
     await this.passwordInput.fill(userCreds.password);
   }
   async clickOnLoginButton() {
