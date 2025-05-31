@@ -6,7 +6,7 @@ import { COUNTRIES } from "data/customers/countries.data";
 
 export function generateCustomerData(params?: Partial<ICustomer>): ICustomer {
   return {
-    email: `julytest${Date.now()}@gmail.com`,
+    email: `julytest-${crypto.randomUUID()}@gmail.com`,
     name: `Test ${faker.string.alpha(35)}`,
     country: getRandomEnumValue(COUNTRIES),
     city: `City ${faker.string.alpha(15)}`,
