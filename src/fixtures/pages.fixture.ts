@@ -1,5 +1,6 @@
-import { test as base } from "@playwright/test";
+import { test as base } from "fixtures/mock.fixture";
 import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
+import { CustomerDetailsPage } from "ui/pages/customers/customer-details.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
 import { DeleteModal } from "ui/pages/modals/customers/delete.modal";
@@ -10,6 +11,7 @@ interface ISalesPortalPages {
   customersPage: CustomersPage;
   addNewCustomerPage: AddNewCustomerPage;
   signInPage: SignIn;
+  customerDetailsPage: CustomerDetailsPage;
 }
 
 export const test = base.extend<ISalesPortalPages>({
@@ -24,5 +26,8 @@ export const test = base.extend<ISalesPortalPages>({
   },
   signInPage: async ({ page }, use) => {
     await use(new SignIn(page));
+  },
+  customerDetailsPage: async ({ page }, use) => {
+    await use(new CustomerDetailsPage(page));
   },
 });
