@@ -3,6 +3,7 @@ export const apiConfig = {
   ENDPOINTS: {
     LOGIN: "/api/login",
     CUSTOMERS: "/api/customers",
-    CUSTOMER_BY_ID: (id: string) => `/api/customers/${id}`,
+    CUSTOMER_BY_ID: (id: string) => `/api/customers/${id}/`,
+    METRICS: '/api/metrics',
   },
 } as const;
