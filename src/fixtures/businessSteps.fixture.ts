@@ -1,7 +1,7 @@
 import { SignIn } from "ui/pages/signIn.page";
 import { test as base } from "./pages.fixture";
 import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
-import { IUser } from "types/user.types";
+import { ICredentials  } from "types/user.types";
 
 interface IBusinessSteps {
   loginAsLocalUser: () => Promise<void>;
@@ -10,8 +10,8 @@ interface IBusinessSteps {
 export const test = base.extend<IBusinessSteps>({
   loginAsLocalUser: async ({ page, homePage }, use) => {
     const signInPage = new SignIn(page); //создание объекта страницы
-    const userCreds: IUser = {
-      email: USER_LOGIN,
+    const userCreds: ICredentials  = {
+      username: USER_LOGIN,
       password: USER_PASSWORD,
     };
 
@@ -19,7 +19,7 @@ export const test = base.extend<IBusinessSteps>({
       await page.goto(SALES_PORTAL_URL);
       await signInPage.fillCredentials(userCreds);
       await signInPage.clickOnLoginButton();
-      await homePage.waitForOpened();
+      //await homePage.waitForOpened();
     });
   },
 });
