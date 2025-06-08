@@ -4,6 +4,8 @@ export const apiConfig = {
     LOGIN: "/api/login",
     CUSTOMERS: "/api/customers",
     CUSTOMER_BY_ID: (id: string) => `/api/customers/${id}/`,
-    METRICS: '/api/metrics',
+    METRICS: "/api/metrics",
+    PRODUCTS: "/api/products",
+    PRODUCT_BY_ID: (id: string) => `/api/products/${id}/`,
   },
 } as const;

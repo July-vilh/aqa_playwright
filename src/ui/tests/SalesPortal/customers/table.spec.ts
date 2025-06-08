@@ -5,7 +5,7 @@ import { COUNTRIES } from "data/customers/countries.data";
 import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
-import { SignIn } from "ui/pages/signIn.page";
+import { SignInPage } from "ui/pages/signIn.page";
 import _, { filter } from "lodash";
 import { FilterModal } from "ui/pages/modals/customers/filter.modal";
 import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
@@ -17,7 +17,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const homePage = new HomePage(page);
     const customersPage = new CustomersPage(page);
     const addNewCustomerPage = new AddNewCustomerPage(page);
-    const signInPage = new SignIn(page);
+    const signInPage = new SignInPage(page);
     await page.goto(SALES_PORTAL_URL);
 
     //залогиниться
@@ -59,7 +59,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const homePage = new HomePage(page);
     const customersPage = new CustomersPage(page);
     //const filterModal = new FilterModal(page);
-    const signInPage = new SignIn(page);
+    const signInPage = new SignInPage(page);
     await page.goto(SALES_PORTAL_URL);
 
     //залогиниться

@@ -1,16 +1,28 @@
 import { MANUFACTURERS } from "data/products/manufactures.data";
+import { IResponseFields, sortDirection } from "./api.types";
+
 
 export interface IProduct {
-  _id: string;
-  name: string;
-  amount: number;
-  price: number;
-  manufacturer: MANUFACTURERS;
-  notes?: string;
-  received: boolean;
+    name: string;
+    manufacturer: MANUFACTURERS;
+    price: number;
+    amount: number;
+    notes?: string;
 }
 
-export interface ITopProduct {
-  name: string;
-  sales: number;
+export interface IProductFromResponse extends IProduct {
+    _id: string;
+    createdOn: string;
+}
+
+export interface IProductResponse extends IResponseFields {
+    Product: IProductFromResponse;
+}
+
+export interface IProductsResponse extends IResponseFields {
+    Products: IProductFromResponse[];
+    sorting: {
+        sortField: "createdOn" | "name" | "manufacturer" | "price";
+        sortOrder: sortDirection;
+    };
 }
