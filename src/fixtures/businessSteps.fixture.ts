@@ -1,7 +1,7 @@
-import { SignIn } from "ui/pages/signIn.page";
+import { SignInPage } from "ui/pages/signIn.page";
 import { test as base } from "./pages.fixture";
 import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
-import { IUser } from "types/user.types";
+import { ICredentials } from "types/user.types";
 
 interface IBusinessSteps {
   loginAsLocalUser: () => Promise<void>;
@@ -9,9 +9,9 @@ interface IBusinessSteps {
 
 export const test = base.extend<IBusinessSteps>({
   loginAsLocalUser: async ({ page, homePage }, use) => {
-    const signInPage = new SignIn(page); //создание объекта страницы
-    const userCreds: IUser = {
-      email: USER_LOGIN,
+    const signInPage = new SignInPage(page); //создание объекта страницы
+    const userCreds: ICredentials = {
+      username: USER_LOGIN,
       password: USER_PASSWORD,
     };
 

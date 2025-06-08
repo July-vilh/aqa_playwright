@@ -5,10 +5,14 @@
 
 // плюс добавление метода для спинера
 import { expect, Locator, Page } from "@playwright/test";
+import { SALES_PORTAL_URL } from "config/environment";
+import { BasePage } from "./base.page";
 
-export abstract class SalesPortalPage {
-  spinner: Locator;
-  notification: Locator;
+export abstract class SalesPortalPage extends BasePage {
+  // spinner: Locator;
+  // notification: Locator;
+  readonly spinner = this.page.locator(".spinner-border");
+  readonly notification = this.page.locator(".toast-body");
   /*каждая страница будет обладать методом waitForOpened и тк мы сделали uniqueElement абстрактным то каждая страница обязана
   будет реализовать это поле (uniqueElement) те прописать какой локатор явл-ся уникальным
   и когда из любой пейджи будет вызываться метод waitForOpened он будет тянуть селектор собственный уникального элемента
@@ -16,9 +20,13 @@ export abstract class SalesPortalPage {
 
   abstract uniqueElement: Locator;
 
-  constructor(protected page: Page) {
-    this.spinner = page.locator(".spinner-border");
-    this.notification = page.locator(".toast-body");
+  // constructor(protected page: Page) {
+  //   this.spinner = page.locator(".spinner-border");
+  //   this.notification = page.locator(".toast-body");
+  // }
+
+  async openPortal() {
+    this.page.goto(SALES_PORTAL_URL);
   }
 
   async waitForOpened() {

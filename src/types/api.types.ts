@@ -1,5 +1,5 @@
 export interface IRequestOptions {
-  baseURL?: string;
+  baseURL: string;
   url: string;
   method: "get" | "post" | "put" | "delete";
   data?: object;
@@ -16,3 +16,7 @@ export interface IResponseFields {
   IsSuccess: boolean;
   ErrorMessage: string | null;
 }
+
+export type sortDirection = "asc" | "desc";
+
+export type customersSortField = "createdOn" | "email" | "name" | "country";
