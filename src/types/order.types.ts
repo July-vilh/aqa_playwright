@@ -16,7 +16,7 @@ export interface IOrder {
   createdOn: string;
   comments?: IOrderComment[];
   history?: IOrderHistory[];
-  assignedManager: IUser;
+  assignedManager: IUser | null;
 }
 
 
