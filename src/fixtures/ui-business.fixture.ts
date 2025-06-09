@@ -1,11 +1,12 @@
 import { test as base } from "./pages.fixture";
-import { EditCustomerUiService } from "ui/business/customers/edit-customer.ui-business";
-import { AddNewCustomerUiService } from "ui/business/customers/add-new-customer.ui-business";
+import { EditCustomerUiService } from "ui/business/customers/editCustomer.ui-business";
 import { HomeUIService } from "ui/business/home.ui-business";
 import { SignInUIService } from "ui/business/signIn.ui-business";
 import { CustomersUIService } from "ui/business/customers/customers.ui-business";
 import { ProductsUIService } from "ui/business/products/products.ui-business";
-import { AddNewProductUiService } from "ui/business/products/add-new-product.ui-business";
+import { AddNewCustomerUiService } from "ui/business/customers/addNewCustomer.ui-business";
+import { AddNewProductUiService } from "ui/business/products/addNewProduct.ui-business";
+import { CustomersApiService } from "api/business/customers.api-business";
 
 interface IUIServices {
   homeUIService: HomeUIService;
@@ -15,6 +16,7 @@ interface IUIServices {
   editCustomerUIService: EditCustomerUiService;
   productsUIService: ProductsUIService;
   addNewProductUIService: AddNewProductUiService;
+  customersApiService: CustomersApiService;
 }
 
 export const test = base.extend<IUIServices>({
@@ -38,6 +40,9 @@ export const test = base.extend<IUIServices>({
   },
   addNewProductUIService: async ({ page }, use) => {
     await use(new AddNewProductUiService(page));
+  },
+  customersApiService: async ({ request }, use) => {
+    await use(new CustomersApiService(request));
   },
 });
 export { expect } from "@playwright/test";

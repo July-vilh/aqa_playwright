@@ -4,8 +4,7 @@ import { apiConfig } from "config/api-config";
 import _ from "lodash";
 import { IRequestOptions, IResponse } from "types/api.types";
 import { IProduct, IProductResponse } from "types/product.types";
-import { AddNewProductPage } from "ui/pages/products/addNewProduct.page";
-import { ProductsPage } from "ui/pages/products/product.page";
+
 
 export class ProductsController {
     private request: RequestApi;

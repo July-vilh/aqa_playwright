@@ -1,23 +1,15 @@
-import { SignInPage } from "ui/pages/signIn.page";
+import { USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { test as base } from "./pages.fixture";
-import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
-import { ICredentials  } from "types/user.types";
 
 interface IBusinessSteps {
-  loginAsLocalUser: () => Promise<void>;
+  loginAsLocalUser(): Promise<void>;
 }
 
 export const test = base.extend<IBusinessSteps>({
-  loginAsLocalUser: async ({ page, homePage }, use) => {
-    const signInPage = new SignInPage(page); //создание объекта страницы
-    const userCreds: ICredentials  = {
-      username: USER_LOGIN,
-      password: USER_PASSWORD,
-    };
-
+  loginAsLocalUser: async ({ homePage, signInPage }, use) => {
     await use(async () => {
-      await page.goto(SALES_PORTAL_URL);
-      await signInPage.fillCredentials(userCreds);
+      await signInPage.openPortal();
+      await signInPage.fillCredentials({ username: USER_LOGIN, password: USER_PASSWORD });
       await signInPage.clickOnLoginButton();
       //await homePage.waitForOpened();
     });

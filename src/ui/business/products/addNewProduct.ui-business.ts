@@ -6,14 +6,11 @@ import { STATUS_CODES } from "data/schemas/customers/statusCodes.schema";
 import _ from "lodash";
 import { ProductsPage } from "ui/pages/products/product.page";
 import { generateProductData } from "data/products/generateProduct.data";
+import { PageHolder } from "../base.ui-business";
 
-export class AddNewProductUiService {
-  private addNewProductPage: AddNewProductPage;
-  private productsPage: ProductsPage;
-  constructor(private page: Page) {
-    this.addNewProductPage = new AddNewProductPage(page);
-    this.productsPage = new ProductsPage(page);
-  }
+export class AddNewProductUiService extends PageHolder {
+  private addNewProductPage = new AddNewProductPage(this.page);
+  private productsPage = new ProductsPage(this.page);
   async create(customData?: IProduct) {
     const data = generateProductData(customData);
     await this.addNewProductPage.fillInputs(data);

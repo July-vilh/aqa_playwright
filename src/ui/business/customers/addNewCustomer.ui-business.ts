@@ -6,14 +6,12 @@ import _ from "lodash";
 import { ICustomer, ICustomerResponse } from "types/customer.types";
 import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
+import { PageHolder } from "../base.ui-business";
 
-export class AddNewCustomerUiService {
-  private addNewCustomerPage: AddNewCustomerPage;
-  private customersPage: CustomersPage;
-  constructor(private page: Page) {
-    this.addNewCustomerPage = new AddNewCustomerPage(page);
-    this.customersPage = new CustomersPage(page);
-  }
+
+export class AddNewCustomerUiService extends PageHolder {
+  private addNewCustomerPage = new AddNewCustomerPage(this.page);
+  private customersPage = new CustomersPage(this.page);
 
   async create(customData?: ICustomer) {
     const data = generateCustomerData(customData);

@@ -4,10 +4,10 @@ import { COUNTRIES } from "data/customers/countries.data";
 import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
-import { SignIn } from "ui/pages/signIn.page";
 import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
 import { test, expect } from "fixtures/businessSteps.fixture";
 import _ from "lodash";
+import { SignInPage } from "ui/pages/signIn.page";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {
   test("Should create customer with smoke data (HW22) with fixtures", async ({ customersPage, addNewCustomerPage, homePage, loginAsLocalUser}) => {
@@ -56,7 +56,7 @@ test.describe("[UI] [Sales Portal] [Customers]", () => {
     const homePage = new HomePage(page);
     const customersPage = new CustomersPage(page);
     const addNewCustomerPage = new AddNewCustomerPage(page);
-    const signInPage = new SignIn(page);
+    const signInPage = new SignInPage(page);
 
     //перейти на сайт
     await page.goto(SALES_PORTAL_URL);

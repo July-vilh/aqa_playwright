@@ -6,8 +6,7 @@ import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
 import { SignInPage } from "ui/pages/signIn.page";
-import _, { filter } from "lodash";
-import { FilterModal } from "ui/pages/modals/customers/filter.modal";
+import _ from "lodash";
 import { SALES_PORTAL_URL, USER_LOGIN, USER_PASSWORD } from "config/environment";
 
 test.describe("[UI] [Sales Portal] [Customers]", () => {

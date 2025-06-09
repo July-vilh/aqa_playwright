@@ -13,7 +13,7 @@ test.describe("[E2E] [UI] [Customers] [Details]", () => {
     customersApiService,
     customerDetailsPage,
   }) => {
-    token = await signInUIService.SignInAsLocalUser();
+    token = await signInUIService.signInAsLocalUser();
     const createdCustomer = await customersApiService.create(token);
     id = createdCustomer._id;
     await homeUIService.openModule("Customers");

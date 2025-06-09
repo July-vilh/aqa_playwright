@@ -9,15 +9,18 @@ test.describe("[E2E] [UI] [Customers] [Edit]", () => {
     homeUIService,
     customersUIService,
     editCustomerUIService,
-    customersController,
     customersApiService,
+    customersController,
   }) => {
-    token = await signInUIService.SignInAsLocalUser();
+    token = await signInUIService.signInAsLocalUser();
     const createdCustomer = await customersApiService.create(token);
     await homeUIService.openModule("Customers");
     await customersUIService.openEditPage(createdCustomer.email);
     const updatedCustomer = await editCustomerUIService.edit();
-    const response = await customersController.getById(updatedCustomer._id, token);
+    const response = await customersController.getById(
+      updatedCustomer._id,
+      token
+    );
     id = updatedCustomer._id;
     expect(response.status).toBe(STATUS_CODES.OK);
   });

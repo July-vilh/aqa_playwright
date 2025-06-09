@@ -20,9 +20,8 @@ test.describe("[E2E] [UI] [Products] [Create]", () => {
     addNewProductUIService,
     productsController,
   }) => {
-    token = await signInUIService.SignInAsLocalUser();
+    token = await signInUIService.signInAsLocalUser();
     await homeUIService.openModule("Products");
-    console.log("Открываем Add New Product");
     await productsUIService.openAddPage();
     const createdProduct = await addNewProductUIService.create();
     const response = await productsController.getById(

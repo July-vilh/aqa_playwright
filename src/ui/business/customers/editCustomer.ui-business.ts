@@ -6,15 +6,12 @@ import _ from "lodash";
 import { ICustomer, ICustomerResponse } from "types/customer.types";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { EditCustomerPage } from "ui/pages/customers/editCustomer.page";
+import { PageHolder } from "../base.ui-business";
 
 
-export class EditCustomerUiService {
-  private editCustomerPage: EditCustomerPage;
-  private customersPage: CustomersPage;
-  constructor(private page: Page) {
-    this.editCustomerPage = new EditCustomerPage(page);
-    this.customersPage = new CustomersPage(page);
-  }
+export class EditCustomerUiService extends PageHolder {
+  private editCustomerPage = new EditCustomerPage(this.page);
+  private customersPage = new CustomersPage(this.page);
 
   async edit(customData?: ICustomer) {
     const data = generateCustomerData(customData);

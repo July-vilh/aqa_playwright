@@ -2,7 +2,6 @@ import { test as base } from "fixtures/mock.fixture";
 import { AddNewCustomerPage } from "ui/pages/customers/addNewCustomer.page";
 import { CustomersPage } from "ui/pages/customers/customers.page";
 import { HomePage } from "ui/pages/home.page";
-import { DeleteModal } from "ui/pages/modals/customers/delete.modal";
 import { CustomerDetailsPage } from "ui/pages/customers/customer-details.page";
 import { SignInPage } from "ui/pages/signIn.page";
 import { SideMenuComponent } from "ui/pages/sideMenu.page";

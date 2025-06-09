@@ -3,7 +3,6 @@
 // отправка кастомного варианта как отправляются опции и кастомный вариант как возвращается интерфейс
 
 import test, { APIRequestContext, APIResponse, request } from "@playwright/test";
-import { apiConfig } from "config/api-config";
 import _ from "lodash";
 import { IRequestOptions, IResponse } from "types/api.types";
 

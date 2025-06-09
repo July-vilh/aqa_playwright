@@ -11,7 +11,7 @@ test.describe("[E2E] [UI] [Customers] [Create]", () => {
     addNewCustomerUIService,
     customersController,
   }) => {
-    token = await signInUIService.SignInAsLocalUser();
+    token = await signInUIService.signInAsLocalUser();
     await homeUIService.openModule("Customers");
     await customersUIService.openAddPage();
     const createdCustomer = await addNewCustomerUIService.create();
