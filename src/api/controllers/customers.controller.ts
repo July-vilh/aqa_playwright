@@ -1,3 +1,4 @@
+import { APIRequestContext } from "@playwright/test";
 import { RequestApi } from "api/apiClients/request";
 import { apiConfig } from "config/api-config";
 import { IRequestOptions } from "types/api.types";
@@ -12,9 +13,14 @@ import { convertRequestParams } from "utils/requestParams.utils";
 // каждый из методов должен принимать только те данные которые ему из вне нужны
 // указывается с какими данными (какими опшенами) у нас будет с каким методом на какой эндпоинт слаться запрос
 export class CustomersController {
-  constructor(private request = new RequestApi()) {}
+  private request: RequestApi;
+
+  constructor(context: APIRequestContext) {
+    this.request = new RequestApi(context);
+  }
   async create(body: ICustomer, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMERS,
       method: "post",
       data: body,
@@ -23,10 +29,11 @@ export class CustomersController {
         Authorization: `Bearer ${token}`,
       },
     };
-    return await this.request.send<ICustomerResponse>(options); // отправка опшенов в запросе
+    return await this.request.send<ICustomerResponse>(options);
   }
   async getById(id: string, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMER_BY_ID(id),
       method: "get",
       headers: {
@@ -38,6 +45,7 @@ export class CustomersController {
   }
   async getAll(token: string, params?: Record<string, string>) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMERS + (params ? convertRequestParams(params): ""),
       method: "get",
       headers: {
@@ -49,6 +57,7 @@ export class CustomersController {
   }
   async update(id: string, body: ICustomer, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMER_BY_ID(id),
       method: "put",
       data: body,
@@ -61,6 +70,7 @@ export class CustomersController {
   }
   async delete(id: string, token: string) {
     const options: IRequestOptions = {
+      baseURL: apiConfig.BASE_URL,
       url: apiConfig.ENDPOINTS.CUSTOMER_BY_ID(id),
       method: "delete",
       headers: {

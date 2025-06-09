@@ -3,6 +3,7 @@ import { ITopCustomer } from "./customer.types";
 import { IOrder } from "./order.types";
 import { ITopProduct } from "./product.types";
 
+
 export interface IMetricsResponse extends IResponseFields {
   Metrics: {
     orders: {

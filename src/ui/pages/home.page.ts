@@ -65,4 +65,14 @@ export class HomePage extends SalesPortalPage {
         throw new Error(`Unknown metric name: ${name}`);
     }
   }
+
+  async clickModuleButton(moduleName: ModuleName) {
+    const moduleButtons: Record<ModuleName, Locator> = {
+      Customers: this.customersButton,
+      Products: this.productsButton,
+      Orders: this.ordersButton,
+    };
+
+    await moduleButtons[moduleName].click();
+  }
 }
